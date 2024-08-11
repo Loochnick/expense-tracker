@@ -1,38 +1,72 @@
-.App {
+.title, h1 {
+  width: 400px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.balance {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 400px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.form-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  width: 400px;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
+.form-input {
+  display: block;
+  width: 300px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.radio-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.expense-budget-container {
+  display: flex;
+  align-items: center;
+  width: 400px;
+}
+
+.expense-container {
+  width: 400px;
+}
+
+.transaction-container {
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr 1fr;
+  align-items: center;
+  width: 400px;
+}
+
+.transaction-container p {
+  display: inline-block;
+}
+
+.expense-indicator {
+  width: 20px;
+  height: 20px;
+  background-color: red;
+}
+
+.budget-indicator {
+  width: 20px;
+  height: 20px;
+  background-color: green;
 }

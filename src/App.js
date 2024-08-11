@@ -1,24 +1,59 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import './App.css';
+import Header from './components/Header';
+import Form from './components/Form';
+import TransactionsList from './components/TransactionsList';
 
 function App() {
+  const [transactions, setTransactions] = useState([]);
+  const [isAdding, setIsAdding] = useState(true);
+  const [expense, setExpense] = useState(0);
+  const [budget, setBudget] = useState(0);
+  const [balance, setBalance] = useState(0);
+
+  const caclulateBalance = () => {
+    let expenseTotal = 0;
+    let budgetTotal = 0;
+    let balance = 0;
+
+    transactions.map((transaction) => {
+      if (transaction.type === 'expense') {
+        expenseTotal += Number(transaction.number);
+      } else {
+        budgetTotal += Number(transaction.number);
+      }
+    });
+
+    setExpense(expenseTotal);
+    setBudget(budgetTotal);
+    setBalance(budgetTotal - expenseTotal);
+  }
+
+
+  useEffect(() => {
+    caclulateBalance();
+  }, [transactions]);
+  
+  const addTransaction = (radioValue, detailsValue, amountValue) => {
+    setTransactions([...transactions, {
+      id: uuidv4(),
+      type: radioValue,
+      name: detailsValue,
+      number: amountValue
+    }]);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <Header balance={balance} isAdding={isAdding} setIsAdding={setIsAdding} />
+    {isAdding ? <Form addTransaction={addTransaction} /> :null}
+    <TransactionsList
+      expense={expense}
+      budget={budget}
+      transactions={transactions}
+      setTransactions={setTransactions} />
+    </>
   );
 }
 
