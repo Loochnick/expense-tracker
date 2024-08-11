@@ -8,7 +8,6 @@ import TransactionsList from './components/TransactionsList';
 function App() {
   const initialState = JSON.parse(localStorage.getItem('transactions')) || [];
   const [transactions, setTransactions] = useState(initialState);
-
   const [isAdding, setIsAdding] = useState(false);
   const [expense, setExpense] = useState(0);
   const [budget, setBudget] = useState(0);
