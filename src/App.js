@@ -6,16 +6,21 @@ import Form from './components/Form';
 import TransactionsList from './components/TransactionsList';
 
 function App() {
-  const [transactions, setTransactions] = useState([]);
+  const initialState = JSON.parse(localStorage.getItem('transactions')) || [];
+  const [transactions, setTransactions] = useState(initialState);
   const [isAdding, setIsAdding] = useState(true);
   const [expense, setExpense] = useState(0);
   const [budget, setBudget] = useState(0);
   const [balance, setBalance] = useState(0);
 
+  useEffect(() => {
+    localStorage.setItem('transactions', JSON.stringify(transactions));
+    caclulateBalance();
+  }, [transactions]);
+
   const caclulateBalance = () => {
     let expenseTotal = 0;
     let budgetTotal = 0;
-    let balance = 0;
 
     transactions.map((transaction) => {
       if (transaction.type === 'expense') {
@@ -29,11 +34,6 @@ function App() {
     setBudget(budgetTotal);
     setBalance(budgetTotal - expenseTotal);
   }
-
-
-  useEffect(() => {
-    caclulateBalance();
-  }, [transactions]);
   
   const addTransaction = (radioValue, detailsValue, amountValue) => {
     setTransactions([...transactions, {
